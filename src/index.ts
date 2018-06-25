@@ -7,7 +7,7 @@ import {RpsContext,RpsModule,rpsAction} from 'rpscript-interface';
 
 
 @RpsModule("notifier")
-export class RPSNotifier {
+export default class RPSNotifier {
 
   @rpsAction({
     defaultName:'notifier',
