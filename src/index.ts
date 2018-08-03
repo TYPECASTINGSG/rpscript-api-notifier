@@ -18,24 +18,28 @@ export default class RPSNotifier {
  * @param {string} title Title
  * @param {string} message Option message
  * @returns {EventEmitter} 
- * @summary Notify popup
- * @description Notify popup
+ * @summary date-of :: (String, String?) -> EventEmitter
+ * 
+ * @description Notification
  * 
  * @see {@link https://www.npmjs.com/package/node-notifier}
  * 
+ * 
 */
   @rpsAction({verbName:'notify'})
-  async notify (ctx:RpsContext,opts:Object, title:string, message?:string) : Promise<EventEmitter>{
+  async notify (ctx:RpsContext,opts:Object, title?:string, message?:string) : Promise<EventEmitter|Function>{
 
-    let input = {title:title,message: message? message : title};
+    function noti (title,message) {
+      if(title)opts['title'] = title;
+      if(message)opts['message'] = message;
 
-    if(opts['icon'])input['icon'] = opts['icon'];
-    input['sound'] = opts['sound'];
-    input['wait'] = opts['wait'];
+      notifier.notify(opts);
 
-    notifier.notify(input);
+      return notifier;
+    }
 
-    return notifier;
+    if(title) return noti(title,message);
+    else return noti;
   }
 
 }

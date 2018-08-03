@@ -8,7 +8,10 @@ m.describe('Notifier', () => {
 
   m.it('should pop up hello world notification', async function () {
     let notifier = new RPSNotifier;
-    notifier.notify(new RpsContext,{sound:true},"hello","world");
+    await notifier.notify(new RpsContext,{subtitle:'subtitle',message:'messge world'},"hello");
+
+    let t:any = await notifier.notify(new RpsContext,{subtitle:'subtitle',message:'messge world'});
+    t('title here');
   });
 
 })
