@@ -1,5 +1,5 @@
 import notifier from 'node-notifier';
-import {RpsContext,RpsModule,rpsAction} from 'rpscript-interface';
+import {RpsContext,RpsModule,rpsAction,R} from 'rpscript-interface';
 import {EventEmitter} from 'events';
 
 
@@ -16,9 +16,10 @@ export default class RPSNotifier {
  * notify 'Title' 'Message'
  * 
  * @param {string} title Title
- * @param {string} message Option message
+ * @param {string} message message
+ * @param {*} options  refer to node-notifier documentation.
  * @returns {EventEmitter} 
- * @summary date-of :: (String, String?) -> EventEmitter
+ * @summary notify :: String -> String -> EventEmitter
  * 
  * @description Notification
  * 
@@ -27,19 +28,18 @@ export default class RPSNotifier {
  * 
 */
   @rpsAction({verbName:'notify'})
-  async notify (ctx:RpsContext,opts:Object, title?:string, message?:string) : Promise<EventEmitter|Function>{
-
-    function noti (title,message) {
+  async notify (ctx:RpsContext,opts:Object, ...params:string[]) : Promise<EventEmitter|Function>{
+    // title?:string, message?:string
+    let fn = R.curry(function noti (title,message) {
       if(title)opts['title'] = title;
       if(message)opts['message'] = message;
 
       notifier.notify(opts);
 
       return notifier;
-    }
+    });
 
-    if(title) return noti(title,message);
-    else return noti;
+    return R.apply(fn,params);
   }
 
 }
