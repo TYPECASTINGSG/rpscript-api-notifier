@@ -4,7 +4,12 @@ import {EventEmitter} from 'events';
 
 
 /** Module for Node Notifier
+ * @see https://www.npmjs.com/package/node-notifier {@link https://www.npmjs.com/package/node-notifier|Notifier}
  * @namespace Notifier
+ * 
+ * @example
+ * rps install notifier
+ * 
 */
 @RpsModule("notifier")
 export default class RPSNotifier {
@@ -21,9 +26,6 @@ export default class RPSNotifier {
  * @returns {EventEmitter} 
  * @summary notify :: String -> String -> EventEmitter
  * 
- * @description Notification
- * 
- * @see {@link https://www.npmjs.com/package/node-notifier}
  * 
  * 
 */
