@@ -4,7 +4,7 @@ import {EventEmitter} from 'events';
 
 
 /** Module for Node Notifier
- * @see https://www.npmjs.com/package/node-notifier {@link https://www.npmjs.com/package/node-notifier|Notifier}
+ * @see {@link https://www.npmjs.com/package/node-notifier}
  * @namespace Notifier
  * 
  * @example
@@ -24,14 +24,13 @@ export default class RPSNotifier {
  * @param {string} message message
  * @param {*} options  refer to node-notifier documentation.
  * @returns {EventEmitter} 
- * @summary notify :: String -> String -> EventEmitter
+ * @summary notify :: String → String → EventEmitter
  * 
  * 
  * 
 */
   @rpsAction({verbName:'notify'})
   async notify (ctx:RpsContext,opts:Object, ...params:string[]) : Promise<EventEmitter|Function>{
-    // title?:string, message?:string
     let fn = R.curry(function noti (title,message) {
       if(title)opts['title'] = title;
       if(message)opts['message'] = message;
